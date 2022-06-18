@@ -1,0 +1,71 @@
+﻿<Window x:Class="Restaurant_Order__Desktop_Interface.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Restaurant_Order__Desktop_Interface"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="820">
+    <WrapPanel>
+        <WrapPanel MinHeight="450" MinWidth="600">
+            <ScrollViewer Height="450" MaxWidth="600" Grid.Row="1"
+                      VerticalScrollBarVisibility="Auto">
+                <ListBox x:Name="orders" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                     Height="450" Width="600"  BorderThickness="2">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate >
+                        <DataTemplate>
+                            <WrapPanel>
+                                <Border BorderThickness="2" BorderBrush="Gray" Padding="20">
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Id}" />
+                                        <TextBlock Text="{Binding FoodCategory}" />
+                                        <TextBlock Text="{Binding FoodName}"/>
+                                        <TextBlock Text="{Binding Status}" />
+                                        <TextBlock Text="{Binding Date}" />
+                                        <Button Content="{Binding Status}" Click="changeStatus_Click" 
+                                                IsEnabled="True" Tag="{Binding Id}"
+                                                Margin="5"></Button>
+                                        <Button Tag="{Binding Id}" Click="orderDone_Click">Done</Button>
+                                    </StackPanel>
+                                </Border>
+                            </WrapPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+            </ScrollViewer>
+        </WrapPanel>
+        <StackPanel Orientation="Vertical" Height="450" Width="200" Background="#f2f2f2" >
+            <TextBlock>
+                <Label>Restaurant:</Label>
+                <TextBox x:Name="restaurant" MinWidth="120" TabIndex="0" HorizontalAlignment="Right" />
+            </TextBlock>
+            <TextBlock>
+                <Label>City:</Label>
+                <TextBox x:Name="city" MinWidth="120" TabIndex="1" HorizontalAlignment="Right" />
+            </TextBlock>
+            <TextBlock>
+                <Label>Address:</Label>
+                <TextBox x:Name="address" MinWidth="120" TabIndex="2" HorizontalAlignment="Right" />
+            </TextBlock>
+            <TextBlock>
+                <Label>Password:</Label>
+                <PasswordBox x:Name="password" MinWidth="120"  TabIndex="3" Password="hello" HorizontalAlignment="Right" />
+            </TextBlock>
+
+            <Button x:Name="authenticate" IsEnabled="True"
+                  Click="authenticate_Click">Connect</Button>
+
+            <WrapPanel Margin="10">
+                <TextBlock>Connection status: </TextBlock>
+                <TextBlock x:Name="appConnectionStatus" FontStyle="Italic"/>
+            </WrapPanel>
+
+        </StackPanel>
+    </WrapPanel>
+</Window>
