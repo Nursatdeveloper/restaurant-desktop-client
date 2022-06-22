@@ -25,12 +25,15 @@
                                         <TextBlock Text="{Binding Id}" />
                                         <TextBlock Text="{Binding FoodCategory}" />
                                         <TextBlock Text="{Binding FoodName}"/>
-                                        <TextBlock Text="{Binding Status}" />
+                                        <TextBlock Text="{Binding DeliveryCode}" />
                                         <TextBlock Text="{Binding Date}" />
                                         <Button Content="{Binding Status}" Click="changeStatus_Click" 
                                                 IsEnabled="True" Tag="{Binding Id}"
                                                 Margin="5"></Button>
                                         <Button Tag="{Binding Id}" Click="orderDone_Click">Done</Button>
+                                        
+
+                                        
                                     </StackPanel>
                                 </Border>
                             </WrapPanel>
@@ -40,6 +43,7 @@
                 </ListBox>
             </ScrollViewer>
         </WrapPanel>
+
         <StackPanel Orientation="Vertical" Height="450" Width="200" Background="#f2f2f2" >
             <TextBlock>
                 <Label>Restaurant:</Label>
@@ -58,7 +62,7 @@
                 <PasswordBox x:Name="password" MinWidth="120"  TabIndex="3" Password="hello" HorizontalAlignment="Right" />
             </TextBlock>
 
-            <Button x:Name="authenticate" IsEnabled="True"
+            <Button x:Name="authenticate" IsEnabled="True" Margin="10 10 10 0"
                   Click="authenticate_Click">Connect</Button>
 
             <WrapPanel Margin="10">
@@ -66,6 +70,22 @@
                 <TextBlock x:Name="appConnectionStatus" FontStyle="Italic"/>
             </WrapPanel>
 
+            <Grid x:Name="InputBox" Visibility="Collapsed">
+                <Grid Background="Gray" Opacity="0.5" Margin="10 0 10 0"/>
+                <Border 
+                HorizontalAlignment="Center" 
+                VerticalAlignment="Center">
+                    <StackPanel>
+                        <TextBlock Margin="5" Text="Delivery Code:" FontWeight="Bold" FontFamily="Cambria" x:Name="InputText"/>
+                        <TextBox MinWidth="150" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="InputTextBox"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button x:Name="SubmitBtn" Margin="5" Content="Submit" Background="LightGray" Click="SubmitButton_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
         </StackPanel>
     </WrapPanel>
+
 </Window>

@@ -15,7 +15,6 @@ namespace Restaurant_Order__Desktop_Interface
         public string FoodCategory { get; set; }
         public string FoodName { get; set; }
         public string Status { get; set; }
-        public bool IsAcceptedByDelivery { get; set; }
-
+        public string DeliveryCode { get; set; }
     }
 }

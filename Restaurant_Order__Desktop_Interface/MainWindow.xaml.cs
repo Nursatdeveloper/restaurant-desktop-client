@@ -17,6 +17,7 @@ namespace Restaurant_Order__Desktop_Interface
         HubConnection connection;
         List<FoodOrder> foodOrders = new();
         ConnectionParameters parameters;
+        FoodOrder acceptedOrder;
         public MainWindow()
         {
             InitializeComponent();
@@ -112,6 +113,23 @@ namespace Restaurant_Order__Desktop_Interface
                 });
             });
 
+            connection.On<FoodOrder>("AcceptedByDelivery", (acceptedOrder) =>
+            {
+                this.Dispatcher.Invoke(() =>
+                {
+                    for (int i = 0; i < foodOrders.Count; i++)
+                    {
+                        if (foodOrders[i].Id == acceptedOrder.Id)
+                        {
+                            foodOrders[i] = acceptedOrder;
+                            orders.ItemsSource = foodOrders;
+                            orders.Items.Refresh();
+                            break;
+                        }
+                    }
+                });
+            });
+
         }
 
         private async Task Connect()
@@ -162,12 +180,27 @@ namespace Restaurant_Order__Desktop_Interface
             Button _button = (Button)sender;
             var id = int.Parse(_button.Tag.ToString());
             var order = foodOrders.Where(o => o.Id == id).FirstOrDefault();
-            if(order.Status == "Ready to deliver")
+            InputBox.Visibility = System.Windows.Visibility.Visible;
+            acceptedOrder = order;
+        }
+
+        private void SubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+            InputBox.Visibility = System.Windows.Visibility.Collapsed;
+
+            String input = InputTextBox.Text;
+            if(acceptedOrder.DeliveryCode == input)
             {
-                foodOrders.Remove(order);
-                orders.ItemsSource = foodOrders;
-                orders.Items.Refresh();
+                if (acceptedOrder.Status == "Ready to deliver")
+                {
+                    foodOrders.Remove(acceptedOrder);
+                    orders.ItemsSource = foodOrders;
+                    orders.Items.Refresh();
+                }
+                InputText.Text = "Delivery code is not correct";
             }
+
+            InputTextBox.Text = String.Empty;
         }
     }
 }
